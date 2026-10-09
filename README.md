@@ -10,11 +10,11 @@ A Retrieval-Augmented Generation (RAG) powered voice assistant that allows users
 * ✂️ Automatic document chunking for efficient retrieval
 * 🧠 Semantic search using **Hugging Face sentence embeddings**
 * 🗂️ Vector storage with **ChromaDB**
-* 🤖 Local LLM inference using **Llama 3.2 (Ollama)**
+* 🤖 LLM answer generation using the **Gemini API**
 * 🎤 Voice-based question input
 * 🔊 Text-to-speech response generation
 * 💻 Interactive Streamlit interface
-* ⚡ Fully local RAG pipeline with no external LLM APIs
+* ⚡ Local document processing, embeddings and vector store; only answer generation calls the Gemini API
 
 ---
 
@@ -24,7 +24,7 @@ A Retrieval-Augmented Generation (RAG) powered voice assistant that allows users
 | ------------------ | ------------------------------- |
 | Frontend           | Streamlit                       |
 | Backend            | Python                          |
-| LLM                | Llama 3.2 (Ollama)              |
+| LLM                | Google Gemini API               |
 | Framework          | LangChain                       |
 | Embeddings         | Hugging Face `all-MiniLM-L6-v2` |
 | Vector Database    | ChromaDB                        |
@@ -60,7 +60,7 @@ Voice Query ---> Speech Recognition
                  Semantic Retrieval
                          |
                          v
-                 Llama 3.2 (Ollama)
+                  Gemini API
                          |
                          v
                 Generated Response
@@ -123,23 +123,23 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 
-### 4. Install Ollama
+### 4. Configure Gemini
 
-Download and install Ollama from:
+Create an API key in [Google AI Studio](https://aistudio.google.com/apikey) and set it as an environment variable:
 
-https://ollama.com
+**Windows (PowerShell)**
 
-Pull the Llama 3.2 model:
-
-```bash
-ollama pull llama3.2
+```powershell
+$env:GEMINI_API_KEY="your_api_key_here"
 ```
 
-Run the model:
+**Linux / macOS**
 
 ```bash
-ollama run llama3.2
+export GEMINI_API_KEY="your_api_key_here"
 ```
+
+The model defaults to `gemini-2.5-flash`; override it with the `GEMINI_MODEL` environment variable.
 
 ---
 
@@ -162,7 +162,7 @@ streamlit run frontend.py
 5. Ask a question using your microphone.
 6. The query is converted to text.
 7. Relevant document chunks are retrieved using semantic similarity.
-8. Retrieved context is provided to the Llama 3.2 model.
+8. Retrieved context is provided to the Gemini model.
 9. The generated answer is converted into speech and played back.
 
 ---
@@ -185,7 +185,7 @@ Ask Your Question
 Retrieve Relevant Chunks
       │
       ▼
-Generate Answer with Llama 3.2
+Generate Answer with Gemini
       │
       ▼
 Play Audio Response
@@ -216,7 +216,7 @@ Play Audio Response
 * Document Chunking
 * Large Language Models
 * Voice Interfaces
-* Local AI Inference
+* Cloud LLM APIs (Gemini)
 * Vector Databases
 
 ---
