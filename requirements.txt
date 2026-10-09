@@ -1,0 +1,12 @@
+streamlit
+SpeechRecognition
+pyttsx3
+PyAudio
+langchain-core
+langchain-community
+langchain-text-splitters
+langchain-huggingface
+langchain-google-genai
+chromadb
+sentence-transformers
+pypdf
